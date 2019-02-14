@@ -1,0 +1,20 @@
+
+spring:
+  profiles:
+    active: dev
+
+
+mybatis:
+  typeAliasesPackage: com.sitech.echn.springboot.dao.model
+  mapperLocations: classpath:mapper/*.xml
+
+---
+spring:
+  profiles: dev
+
+  datasource:
+    url: jdbc:mysql://172.21.10.197:3306/cloud_data
+    username: emall
+    password: emall
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource

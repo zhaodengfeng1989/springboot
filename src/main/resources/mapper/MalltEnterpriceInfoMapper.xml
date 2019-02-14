@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sitech.echn.springboot.dao.api.MalltEnterpriceInfoDao" >
+  <resultMap id="BaseResultMap" type="com.sitech.echn.springboot.dao.model.MalltEnterpriceInfo" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="NETWORK_ELEMENT_NUMBER" property="networkElementNumber" jdbcType="VARCHAR" />
+    <result column="NETWORK_ELEMENT_NAME" property="networkElementName" jdbcType="VARCHAR" />
+    <result column="ENGINE_ROOM_NAME" property="engineRoomName" jdbcType="VARCHAR" />
+    <result column="ENGINE_FLOOR_NAME" property="engineFloorName" jdbcType="VARCHAR" />
+    <result column="DEVICE_MODEL" property="deviceModel" jdbcType="VARCHAR" />
+    <result column="DEVICE_ADDRESS" property="deviceAddress" jdbcType="VARCHAR" />
+    <result column="DISTRICT" property="district" jdbcType="VARCHAR" />
+    <result column="STREET" property="street" jdbcType="VARCHAR" />
+    <result column="BUILDING_NAME" property="buildingName" jdbcType="VARCHAR" />
+    <result column="BUREAU_BOUNDARY" property="bureauBoundary" jdbcType="VARCHAR" />
+    <result column="LINK_CONFIGED" property="linkConfiged" jdbcType="VARCHAR" />
+    <result column="PARK_PORT_ASSIGNED" property="parkPortAssigned" jdbcType="VARCHAR" />
+    <result column="PARK_PORT_OCCUPIED" property="parkPortOccupied" jdbcType="VARCHAR" />
+    <result column="ENTERPRICE_PORT_ASSIGNED" property="enterpricePortAssigned" jdbcType="VARCHAR" />
+    <result column="ENTERPRICE_PORT_OCCUPIED" property="enterpricePortOccupied" jdbcType="VARCHAR" />
+    <result column="RESOURCE_CAN_OPEN" property="resourceCanOpen" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="buildingResultMap" type="java.lang.String" >
+    <result column="BUILDING_NAME" property="buildingName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ID, NETWORK_ELEMENT_NUMBER, NETWORK_ELEMENT_NAME, ENGINE_ROOM_NAME, ENGINE_FLOOR_NAME, 
+    DEVICE_MODEL, DEVICE_ADDRESS, DISTRICT, STREET, BUILDING_NAME, BUREAU_BOUNDARY, LINK_CONFIGED, 
+    PARK_PORT_ASSIGNED, PARK_PORT_OCCUPIED, ENTERPRICE_PORT_ASSIGNED, ENTERPRICE_PORT_OCCUPIED, 
+    RESOURCE_CAN_OPEN
+  </sql>
+
+  <select id="selectCacheBuildingLst" resultMap="buildingResultMap">
+    select 
+    	BUILDING_NAME
+    from mallt_enterprice_info
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.sitech.echn.springboot.dao.model.MalltEnterpriceInfo" >
+    select 
+    <include refid="Base_Column_List" />
+    from mallt_enterprice_info
+    <where>
+    	<if test="id != null" >
+        	and ID = #{id,jdbcType=INTEGER}
+      	</if>
+      	<if test="buildingName != null and buildingName != '' " >
+        	and BUILDING_NAME = #{buildingName,jdbcType=VARCHAR}
+      	</if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mallt_enterprice_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.sitech.echn.springboot.dao.model.MalltEnterpriceInfo" >
+    insert into mallt_enterprice_info (ID, NETWORK_ELEMENT_NUMBER, NETWORK_ELEMENT_NAME, 
+      ENGINE_ROOM_NAME, ENGINE_FLOOR_NAME, DEVICE_MODEL, 
+      DEVICE_ADDRESS, DISTRICT, STREET, 
+      BUILDING_NAME, BUREAU_BOUNDARY, LINK_CONFIGED, 
+      PARK_PORT_ASSIGNED, PARK_PORT_OCCUPIED, ENTERPRICE_PORT_ASSIGNED, 
+      ENTERPRICE_PORT_OCCUPIED, RESOURCE_CAN_OPEN
+      )
+    values (#{id,jdbcType=INTEGER}, #{networkElementNumber,jdbcType=VARCHAR}, #{networkElementName,jdbcType=VARCHAR}, 
+      #{engineRoomName,jdbcType=VARCHAR}, #{engineFloorName,jdbcType=VARCHAR}, #{deviceModel,jdbcType=VARCHAR}, 
+      #{deviceAddress,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, 
+      #{buildingName,jdbcType=VARCHAR}, #{bureauBoundary,jdbcType=VARCHAR}, #{linkConfiged,jdbcType=VARCHAR}, 
+      #{parkPortAssigned,jdbcType=VARCHAR}, #{parkPortOccupied,jdbcType=VARCHAR}, #{enterpricePortAssigned,jdbcType=VARCHAR}, 
+      #{enterpricePortOccupied,jdbcType=VARCHAR}, #{resourceCanOpen,jdbcType=VARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.sitech.echn.springboot.dao.model.MalltEnterpriceInfo" >
+    insert into mallt_enterprice_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="networkElementNumber != null" >
+        NETWORK_ELEMENT_NUMBER,
+      </if>
+      <if test="networkElementName != null" >
+        NETWORK_ELEMENT_NAME,
+      </if>
+      <if test="engineRoomName != null" >
+        ENGINE_ROOM_NAME,
+      </if>
+      <if test="engineFloorName != null" >
+        ENGINE_FLOOR_NAME,
+      </if>
+      <if test="deviceModel != null" >
+        DEVICE_MODEL,
+      </if>
+      <if test="deviceAddress != null" >
+        DEVICE_ADDRESS,
+      </if>
+      <if test="district != null" >
+        DISTRICT,
+      </if>
+      <if test="street != null" >
+        STREET,
+      </if>
+      <if test="buildingName != null" >
+        BUILDING_NAME,
+      </if>
+      <if test="bureauBoundary != null" >
+        BUREAU_BOUNDARY,
+      </if>
+      <if test="linkConfiged != null" >
+        LINK_CONFIGED,
+      </if>
+      <if test="parkPortAssigned != null" >
+        PARK_PORT_ASSIGNED,
+      </if>
+      <if test="parkPortOccupied != null" >
+        PARK_PORT_OCCUPIED,
+      </if>
+      <if test="enterpricePortAssigned != null" >
+        ENTERPRICE_PORT_ASSIGNED,
+      </if>
+      <if test="enterpricePortOccupied != null" >
+        ENTERPRICE_PORT_OCCUPIED,
+      </if>
+      <if test="resourceCanOpen != null" >
+        RESOURCE_CAN_OPEN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="networkElementNumber != null" >
+        #{networkElementNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="networkElementName != null" >
+        #{networkElementName,jdbcType=VARCHAR},
+      </if>
+      <if test="engineRoomName != null" >
+        #{engineRoomName,jdbcType=VARCHAR},
+      </if>
+      <if test="engineFloorName != null" >
+        #{engineFloorName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceModel != null" >
+        #{deviceModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddress != null" >
+        #{deviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null" >
+        #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null" >
+        #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="bureauBoundary != null" >
+        #{bureauBoundary,jdbcType=VARCHAR},
+      </if>
+      <if test="linkConfiged != null" >
+        #{linkConfiged,jdbcType=VARCHAR},
+      </if>
+      <if test="parkPortAssigned != null" >
+        #{parkPortAssigned,jdbcType=VARCHAR},
+      </if>
+      <if test="parkPortOccupied != null" >
+        #{parkPortOccupied,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpricePortAssigned != null" >
+        #{enterpricePortAssigned,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpricePortOccupied != null" >
+        #{enterpricePortOccupied,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceCanOpen != null" >
+        #{resourceCanOpen,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.sitech.echn.springboot.dao.model.MalltEnterpriceInfo" >
+    update mallt_enterprice_info
+    <set >
+      <if test="networkElementNumber != null" >
+        NETWORK_ELEMENT_NUMBER = #{networkElementNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="networkElementName != null" >
+        NETWORK_ELEMENT_NAME = #{networkElementName,jdbcType=VARCHAR},
+      </if>
+      <if test="engineRoomName != null" >
+        ENGINE_ROOM_NAME = #{engineRoomName,jdbcType=VARCHAR},
+      </if>
+      <if test="engineFloorName != null" >
+        ENGINE_FLOOR_NAME = #{engineFloorName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceModel != null" >
+        DEVICE_MODEL = #{deviceModel,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddress != null" >
+        DEVICE_ADDRESS = #{deviceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="district != null" >
+        DISTRICT = #{district,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null" >
+        STREET = #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="buildingName != null" >
+        BUILDING_NAME = #{buildingName,jdbcType=VARCHAR},
+      </if>
+      <if test="bureauBoundary != null" >
+        BUREAU_BOUNDARY = #{bureauBoundary,jdbcType=VARCHAR},
+      </if>
+      <if test="linkConfiged != null" >
+        LINK_CONFIGED = #{linkConfiged,jdbcType=VARCHAR},
+      </if>
+      <if test="parkPortAssigned != null" >
+        PARK_PORT_ASSIGNED = #{parkPortAssigned,jdbcType=VARCHAR},
+      </if>
+      <if test="parkPortOccupied != null" >
+        PARK_PORT_OCCUPIED = #{parkPortOccupied,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpricePortAssigned != null" >
+        ENTERPRICE_PORT_ASSIGNED = #{enterpricePortAssigned,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpricePortOccupied != null" >
+        ENTERPRICE_PORT_OCCUPIED = #{enterpricePortOccupied,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceCanOpen != null" >
+        RESOURCE_CAN_OPEN = #{resourceCanOpen,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.sitech.echn.springboot.dao.model.MalltEnterpriceInfo" >
+    update mallt_enterprice_info
+    set NETWORK_ELEMENT_NUMBER = #{networkElementNumber,jdbcType=VARCHAR},
+      NETWORK_ELEMENT_NAME = #{networkElementName,jdbcType=VARCHAR},
+      ENGINE_ROOM_NAME = #{engineRoomName,jdbcType=VARCHAR},
+      ENGINE_FLOOR_NAME = #{engineFloorName,jdbcType=VARCHAR},
+      DEVICE_MODEL = #{deviceModel,jdbcType=VARCHAR},
+      DEVICE_ADDRESS = #{deviceAddress,jdbcType=VARCHAR},
+      DISTRICT = #{district,jdbcType=VARCHAR},
+      STREET = #{street,jdbcType=VARCHAR},
+      BUILDING_NAME = #{buildingName,jdbcType=VARCHAR},
+      BUREAU_BOUNDARY = #{bureauBoundary,jdbcType=VARCHAR},
+      LINK_CONFIGED = #{linkConfiged,jdbcType=VARCHAR},
+      PARK_PORT_ASSIGNED = #{parkPortAssigned,jdbcType=VARCHAR},
+      PARK_PORT_OCCUPIED = #{parkPortOccupied,jdbcType=VARCHAR},
+      ENTERPRICE_PORT_ASSIGNED = #{enterpricePortAssigned,jdbcType=VARCHAR},
+      ENTERPRICE_PORT_OCCUPIED = #{enterpricePortOccupied,jdbcType=VARCHAR},
+      RESOURCE_CAN_OPEN = #{resourceCanOpen,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
